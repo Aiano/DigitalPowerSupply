@@ -1,0 +1,3 @@
+Change Net Name : Old Net Name=USB_Debug_DN New Net Name=USB_Debug_N
+Change Net Name : Old Net Name=USB_Debug_DP New Net Name=USB_Debug_P
+Added Differential Pair: Name=USB_Debug

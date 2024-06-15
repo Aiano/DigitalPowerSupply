@@ -1,0 +1,11 @@
+Added Pin To Net: NetName=PD_VBUS_SENSE Pin=U2-33
+Added Member To Class: ClassName=Display Member=Component LED1 бли╚
+Added Member To Class: ClassName=Display Member=Component R1 470R
+Added Member To Class: ClassName=Display Member=Component R2 4.7K
+Added Member To Class: ClassName=Display Member=Component R3 4.7K
+Added Member To Class: ClassName=Display Member=Component R5 100R
+Added Member To Class: ClassName=Display Member=Component R7 10K
+Added Member To Class: ClassName=Display Member=Component R9 100K
+Added Member To Class: ClassName=Display Member=Component R11 100K
+Added Member To Class: ClassName=Display Member=Component R13 10K
+Added Member To Class: ClassName=Display Member=Component R15 22R

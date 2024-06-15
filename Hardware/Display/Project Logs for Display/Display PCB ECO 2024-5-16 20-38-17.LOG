@@ -1,0 +1,28 @@
+Added Component: Designator=R?(R 0402_L)
+Add component (AddParameter): Name = "BOM名称"; Value = "贴片电阻"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "学习资源"; Value = "www.ooocke.com"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "版权归属"; Value = "源创客"; VariantName = "[No Variations]"
+Added Component: Designator=R?(R 0402_L)
+Add component (AddParameter): Name = "BOM名称"; Value = "贴片电阻"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "学习资源"; Value = "www.ooocke.com"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "版权归属"; Value = "源创客"; VariantName = "[No Variations]"
+Added Component: Designator=TP?(TEST TP1.4_R)
+Add component (AddParameter): Name = "BOM名称"; Value = "测试环"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "学习资源"; Value = "www.ooocke.com"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "版权归属"; Value = "源创客"; VariantName = "[No Variations]"
+Added Pin To Net: NetName=PD_VBUS Pin=R?-1
+Added Pin To Net: NetName=GND Pin=R?-2
+Added Pin To Net: NetName=PD_VBUS Pin=TP?-1
+Added Pin To Net: NetName=MCU_SWCLK Pin=U1-50
+Added Net: Name=MCU_SWCLK
+Added Pin To Net: NetName=MCU_SWDIO Pin=U1-49
+Added Net: Name=MCU_SWDIO
+Added Pin To Net: NetName=PD_VBUS_SENSE Pin=R?-1
+Added Pin To Net: NetName=PD_VBUS_SENSE Pin=R?-2
+Added Net: Name=PD_VBUS_SENSE
+Added Member To Class: ClassName=Display Member=Component C14 10uF
+Added Member To Class: ClassName=Display Member=Component CN2 LCD Touch Connector
+Added Member To Class: ClassName=Display Member=Component R4 10K
+Added Member To Class: ClassName=Display Member=Component R? 3K
+Added Member To Class: ClassName=Display Member=Component R? 17K4
+Added Member To Class: ClassName=Display Member=Component TP? TEST TP

@@ -1,0 +1,5 @@
+DRC Rules Export File for PCB: C:\Users\56217\OneDrive\_Projects\Prjs_Altium\STLink\STLink V2.1\STLink V2.1_Ver1.2\STLink V2.1_Ver1.2.PcbDoc
+RuleKind=SolderMaskExpansion|RuleName=SolderMaskExpansion|Scope=Board|Minimum=4.00
+RuleKind=Width|RuleName=Width|Scope=Board|Minimum=6.00
+RuleKind=Clearance|RuleName=Clearance|Scope=Board|Minimum=6.00
+RuleKind=ShortCircuit|RuleName=ShortCircuit|Scope=Board|Allowed=0

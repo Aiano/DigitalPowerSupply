@@ -1,0 +1,5 @@
+Record=TopLevelDocument|FileName=AuxiliaryPowerSupply.SchDoc|SheetNumber=2
+Record=NoMainPathDocument|SourceDocument=AuxiliaryPowerSupply.SchDoc|FileName=MainPowerCircuit.SchDoc|SheetNumber=1
+Record=NoMainPathDocument|SourceDocument=AuxiliaryPowerSupply.SchDoc|FileName=MCU.SchDoc|SheetNumber=3
+Record=NoMainPathDocument|SourceDocument=AuxiliaryPowerSupply.SchDoc|FileName=SignalConditioning.SchDoc|SheetNumber=4
+Record=NoMainPathDocument|SourceDocument=AuxiliaryPowerSupply.SchDoc|FileName=STLink-V2-1.SchDoc|SheetNumber=5

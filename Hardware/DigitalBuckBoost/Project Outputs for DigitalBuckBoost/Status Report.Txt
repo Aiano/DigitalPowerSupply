@@ -1,0 +1,13 @@
+Output: NC Drill Files
+Type  : NC Drill
+From  : Project [DigitalBuckBoost.PrjPcb]
+   Generated File[DigitalBuckBoost-RoundHoles.TXT]
+   Generated File[DigitalBuckBoost-SlotHoles.TXT]
+   Generated File[DigitalBuckBoost.LDP]
+   Generated File[DigitalBuckBoost.DRR]
+
+
+Files Generated   : 4
+Documents Printed : 0
+
+Finished Output Generation At 21:29:31 On 2024/8/25

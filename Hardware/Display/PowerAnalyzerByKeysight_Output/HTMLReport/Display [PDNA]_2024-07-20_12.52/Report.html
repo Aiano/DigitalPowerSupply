@@ -1,0 +1,774 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+	<style type="text/css">
+		body {
+			font-family: segoe ui;
+		}
+	</style>
+
+	<link rel="stylesheet" type="text/css" href="css/style.css">
+
+	<script type="text/javascript" src="js/jquery-latest.js"></script>
+
+	<script type="text/javascript" src="js/jquery.tablesorter.js"></script>
+
+
+	<script>
+		function OpenFolder(path) {
+			window.open('file:///' + path, 'explorer');
+		}
+	</script>
+
+	<script>
+		function onPageLoaded() {
+			makeStripy("simpletable");
+			makeStripy("tablesorter");
+
+			var acc = document.getElementsByClassName("foldButton");
+			var i;
+
+			for (i = 0; i < acc.length; i++) {
+				acc[i].onclick = function () {
+					this.classList.toggle("active");
+					var foldablePanel = this.nextElementSibling;
+
+					if (foldablePanel.style.maxHeight) {
+						foldablePanel.style.maxHeight = null;
+					}
+					else {
+						foldablePanel.style.maxHeight = foldablePanel.scrollHeight + "px";
+					}
+				}
+			}
+		}
+	</script>
+
+	<script>
+		function makeStripy(tabClass) {
+			var tabs = document.getElementsByTagName("table");
+			for (var e = 0; e < tabs.length; e++)
+				if (tabs[e].className == tabClass) {
+					var rows = tabs[e].getElementsByTagName("tr");
+					for (var i = 1; i < rows.length; i++) {
+						if ((i % 2) == 0) {
+							rows[i].className = "onmouseout_odd";
+							rows[i].onmouseover = function () { this.className = 'onmouseover_odd' };
+							rows[i].onmouseout = function () { this.className = 'onmouseout_odd' };
+						}
+						else {
+							rows[i].className = "onmouseout_even";
+							rows[i].onmouseover = function () { this.className = 'onmouseover_even' };
+							rows[i].onmouseout = function () { this.className = 'onmouseout_even' };
+						}
+					}
+				}
+		}
+	</script>
+
+	<script>
+		function UnfoldFolded(foldedChild) {
+			if (!foldedChild) return;
+			var el = document.getElementById(foldedChild);
+			if (!el) {
+				window.alert("Report section omitted");
+				return;
+			}
+
+			while ((el = el.parentNode) && (!el) && el.className.indexOf('foldablePanel') < 0);
+
+			if (!el) {
+				//window.alert("Report section omitted");
+				return;
+			}
+
+			el.style.maxHeight = el.scrollHeight + "px";
+			var minHeightCached = el.style.minHeight;
+			el.style.minHeight = el.style.maxHeight;
+
+			var trCached = el.style.transition;
+
+			el.style.transition = "max-height 0.0s ease-out";
+
+			el.scrollIntoView();
+
+			el.style.minHeight = minHeightCached;
+			el.style.transition = trCached;
+		}
+	</script>
+</head>
+
+<body>
+	<!--Title-->
+	<table align="center" border="0" cellspacing="2" cellpadding="2" width="90%">
+		<tr>
+			<td> </br> </td>
+		</tr>
+
+		<tr align="left">
+			<td>
+				<left><img src="art\AD_logo.png" title="Altium" style="max-width:99%;max-height:99%;"></left>
+			</td>
+		</tr>
+	</table>
+
+	<table align="center" border="1" cellspacing="2" cellpadding="2" width="90%">
+		<tr>
+			<td>
+				<center> Power Analyzer Results Report for
+					<br /><b>Display</b> </center>
+				<br />
+			</td>
+		</tr>
+
+		<!--Head-->
+		<H2 id="signature96t0879g09870gj0m_ReportSignature_hyperlinkid_header"></H2>
+		<tr align="left">
+			<td>
+				<br />
+				<left> <b> Power Analyzer Version: </b>1.0.14.200
+				</left><br />
+				<left> <b> Report Time / Date: </b>2024/7/20 12:51:30</left>
+				<br />
+				<left> <b> Project Name: </b>Display</left><br />
+				<left> <b> Used Simulation Engine:
+					</b>Keysight<br />
+					<left> <b></b></left>
+					<br />
+			</td>
+		</tr>
+		<tr> </tr>
+		<tr> </tr>
+		<tr> </tr>
+		<tr> </tr>
+		<tr> </tr>
+		<tr> </tr>
+
+		<!--signature96t0879g09870gj0m_ReportSignature_PDN Analizer Global Settings Start-->
+		<tr>
+			<td>
+				<button class="foldButton" width="100%"><b>Power Analizer Global Settings</b></button>
+				<div class="foldablePanel">
+					<H2 id="signature96t0879g09870gj0m_ReportSignature_hyperlinkid_globalsettings"></H2>
+					<br />
+					<!--GlobalSettingsTableID-->
+					<!--GlobalSettings-->
+					<table id='GlobalSettingsTableID' class='simpletable'>
+    <thead>
+       <th><b>Parameter</b></th>
+              <th><b>Value</b></th>
+          </thead>
+      <tr>
+       <td><b>Metal conductivity</b></td>
+              <td>1493.52 S/mil</td>
+          </tr>
+      <tr>
+       <td><b>Metal base conductivity</b></td>
+              <td>1493.52 S/mil</td>
+          </tr>
+      <tr>
+       <td><b>Metal base temperature</b></td>
+              <td>77°F</td>
+          </tr>
+      <tr>
+       <td><b>Metal work temperature</b></td>
+              <td>77°F</td>
+          </tr>
+      <tr>
+       <td><b>Metal temperature coefficient</b></td>
+              <td>0.4 %/F</td>
+          </tr>
+      <tr>
+       <td><b>Conductor Max Current Density for Surfase Layers</b></td>
+              <td>0.064516 A/mil^2</td>
+          </tr>
+      <tr>
+       <td><b>Conductor Max Current Density for Internal Layers</b></td>
+              <td>0.064516 A/mil^2</td>
+          </tr>
+      <tr>
+       <td><b>Via wall thickness</b></td>
+              <td>0.7mil</td>
+          </tr>
+      <tr>
+       <td><b>Max Via Current Density</b></td>
+              <td>0 A/mil^2</td>
+          </tr>
+      <tr>
+       <td><b>Skip ground</b></td>
+              <td>True</td>
+          </tr>
+   </table><br/>
+
+				</div>
+			</td>
+		</tr>
+		<tr> </tr>
+		<tr> </tr>
+		<tr> </tr>
+		<tr> </tr>
+		<tr> </tr>
+		<tr> </tr>
+		<!--signature96t0879g09870gj0m_ReportSignature_PDN Analizer Global Settings End-->
+
+		<!--signature96t0879g09870gj0m_ReportSignature_Design Stackup Start-->
+		<tr>
+			<td>
+				<button class="foldButton" width="100%"><b>Design Stackup</b></button>
+				<div class="foldablePanel">
+					<H2 id="signature96t0879g09870gj0m_ReportSignature_hyperlinkid_layerstack"></H2>
+					<br />
+					<!--LayerStackupTableID-->
+					<!--DesignStackup-->
+					<table id='LayerStackupTableID' class='simpletable'>
+    <thead>
+       <th><b>#</b></th>
+              <th><b>Name</b></th>
+              <th><b>Material</b></th>
+              <th><b>Type</b></th>
+              <th><b>Thickness</b></th>
+          </thead>
+      <tr style="background-color:#8DBD8A;">
+       <td><b></b></td>
+              <td>Top Overlay</td>
+              <td></td>
+              <td>Overlay</td>
+              <td></td>
+          </tr>
+      <tr style="background-color:#8DBD8A;">
+       <td><b></b></td>
+              <td>Top Solder</td>
+              <td>Solder Resist</td>
+              <td>Solder Mask</td>
+              <td>0.4mil</td>
+          </tr>
+      <tr style="background-color:#D4B383;">
+       <td><b>1</b></td>
+              <td>Top Layer</td>
+              <td></td>
+              <td>Signal</td>
+              <td>1.378mil</td>
+          </tr>
+      <tr style="background-color:#DBD8C5;">
+       <td><b></b></td>
+              <td>Dielectric 2</td>
+              <td>PP-023</td>
+              <td>Prepreg</td>
+              <td>8.284mil</td>
+          </tr>
+      <tr style="background-color:#D4B383;">
+       <td><b>2</b></td>
+              <td>GND</td>
+              <td>CF-004</td>
+              <td>Plane</td>
+              <td>0.598mil</td>
+          </tr>
+      <tr style="background-color:#888888;">
+       <td><b></b></td>
+              <td>Dielectric 1</td>
+              <td>FR-4</td>
+              <td>Isolation</td>
+              <td>41.929mil</td>
+          </tr>
+      <tr style="background-color:#D4B383;">
+       <td><b>3</b></td>
+              <td>POWER</td>
+              <td>CF-004</td>
+              <td>Plane</td>
+              <td>0.598mil</td>
+          </tr>
+      <tr style="background-color:#DBD8C5;">
+       <td><b></b></td>
+              <td>Dielectric 3</td>
+              <td>PP-023</td>
+              <td>Prepreg</td>
+              <td>8.284mil</td>
+          </tr>
+      <tr style="background-color:#D4B383;">
+       <td><b>4</b></td>
+              <td>Bottom Layer</td>
+              <td></td>
+              <td>Signal</td>
+              <td>1.378mil</td>
+          </tr>
+      <tr style="background-color:#8DBD8A;">
+       <td><b></b></td>
+              <td>Bottom Solder</td>
+              <td>Solder Resist</td>
+              <td>Solder Mask</td>
+              <td>0.4mil</td>
+          </tr>
+      <tr style="background-color:#8DBD8A;">
+       <td><b></b></td>
+              <td>Bottom Overlay</td>
+              <td></td>
+              <td>Overlay</td>
+              <td></td>
+          </tr>
+   </table><br/>
+
+				</div>
+			</td>
+		</tr>
+		<tr> </tr>
+		<tr> </tr>
+		<tr> </tr>
+		<tr> </tr>
+		<tr> </tr>
+		<tr> </tr>
+		<!--signature96t0879g09870gj0m_ReportSignature_Design Stackup End-->
+
+		<!--signature96t0879g09870gj0m_ReportSignature_Heatmaps Start-->
+		<tr>
+			<td>
+				<!--signature96t0879g09870gj0m_ReportSignature_Heatmap for Current Density Start-->
+				<button class="foldButton" width="100%">
+					<b>Heatmap For Current Density</b>
+				</button>
+				<div class="foldablePanel">
+					<H2 id="signature96t0879g09870gj0m_ReportSignature_hyperlinkid_HeatmapForCurrentDensity_head"></H2>
+					<br />
+
+					<!--signature96t0879g09870gj0m_ReportSignature_HeatmapForCurrentDensityLineStart-->
+					<br />
+					<H2 id="signature96t0879g09870gj0m_ReportSignature_hyperlinkid_HeatmapForCurrentDensity_layer"></H2>
+					<center><b>Layer: </b>Bottom Layer
+					</center><br />
+					<center><img src="Images\28baa386-0bed-4964-b619-e2a5e8a3118e.png"
+							title="Bottom Layer"
+							style="max-width:99%;max-height:99%;"></center>
+					<br />
+					<!--signature96t0879g09870gj0m_ReportSignature_HeatmapForCurrentDensityLineEnd--><!--signature96t0879g09870gj0m_ReportSignature_HeatmapForCurrentDensityLineStart-->
+					<br />
+					<H2 id="signature96t0879g09870gj0m_ReportSignature_hyperlinkid_HeatmapForCurrentDensity_layer"></H2>
+					<center><b>Layer: </b>POWER
+					</center><br />
+					<center><img src="Images\69576c85-04f0-4e50-8076-4920a4d79f14.png"
+							title="POWER"
+							style="max-width:99%;max-height:99%;"></center>
+					<br />
+					<!--signature96t0879g09870gj0m_ReportSignature_HeatmapForCurrentDensityLineEnd--><!--signature96t0879g09870gj0m_ReportSignature_HeatmapForCurrentDensityLineStart-->
+					<br />
+					<H2 id="signature96t0879g09870gj0m_ReportSignature_hyperlinkid_HeatmapForCurrentDensity_layer"></H2>
+					<center><b>Layer: </b>Top Layer
+					</center><br />
+					<center><img src="Images\9c762727-8204-4b62-9185-a2396344016b.png"
+							title="Top Layer"
+							style="max-width:99%;max-height:99%;"></center>
+					<br />
+					<!--signature96t0879g09870gj0m_ReportSignature_HeatmapForCurrentDensityLineEnd-->
+				</div>
+				<!--signature96t0879g09870gj0m_ReportSignature_Heatmap for Current Density End-->
+			</td>
+		</tr>
+
+		<tr>
+			<td>
+				<!--signature96t0879g09870gj0m_ReportSignature_Heatmap for Voltage Drop Start-->
+				<button class="foldButton" width="100%">
+					<b>Heatmap For Voltage Drop</b>
+				</button>
+				<div class="foldablePanel">
+					<H2 id="signature96t0879g09870gj0m_ReportSignature_hyperlinkid_HeatmapForVoltageDrop_head"></H2>
+					<br />
+
+					<!--signature96t0879g09870gj0m_ReportSignature_HeatmapForVoltageDropLineStart-->
+					<br />
+					<H2 id="signature96t0879g09870gj0m_ReportSignature_hyperlinkid_HeatmapForVoltageDrop_layer"></H2>
+					<center><b>Layer: </b>Bottom Layer
+					</center><br />
+					<center><img src="Images\8413cedf-760a-408b-9524-4e1e8f3a611a.png"
+							title="Bottom Layer"
+							style="max-width:99%;max-height:99%;"></center>
+					<br />
+					<!--signature96t0879g09870gj0m_ReportSignature_HeatmapForVoltageDropLineEnd--><!--signature96t0879g09870gj0m_ReportSignature_HeatmapForVoltageDropLineStart-->
+					<br />
+					<H2 id="signature96t0879g09870gj0m_ReportSignature_hyperlinkid_HeatmapForVoltageDrop_layer"></H2>
+					<center><b>Layer: </b>POWER
+					</center><br />
+					<center><img src="Images\ba6369ec-481f-4b94-b167-3d788dbf233c.png"
+							title="POWER"
+							style="max-width:99%;max-height:99%;"></center>
+					<br />
+					<!--signature96t0879g09870gj0m_ReportSignature_HeatmapForVoltageDropLineEnd--><!--signature96t0879g09870gj0m_ReportSignature_HeatmapForVoltageDropLineStart-->
+					<br />
+					<H2 id="signature96t0879g09870gj0m_ReportSignature_hyperlinkid_HeatmapForVoltageDrop_layer"></H2>
+					<center><b>Layer: </b>Top Layer
+					</center><br />
+					<center><img src="Images\fd5f286f-8564-4b60-9dd0-9752aa1360ea.png"
+							title="Top Layer"
+							style="max-width:99%;max-height:99%;"></center>
+					<br />
+					<!--signature96t0879g09870gj0m_ReportSignature_HeatmapForVoltageDropLineEnd-->
+				</div>
+				<!--signature96t0879g09870gj0m_ReportSignature_Heatmap for Voltage Drop End-->
+			</td>
+		</tr>
+		<tr> </tr>
+		<tr> </tr>
+		<tr> </tr>
+		<tr> </tr>
+		<tr> </tr>
+		<tr> </tr>
+		<!--signature96t0879g09870gj0m_ReportSignature_Heatmaps End-->
+
+		<!--signature96t0879g09870gj0m_ReportSignature_System-Level Power Network Results Start-->
+		<tr>
+			<td>
+				<button class="foldButton" width="100%"><b>System-Level Power Network Results</b></button>
+				<div class="foldablePanel">
+					<H2 id="signature96t0879g09870gj0m_ReportSignature_hyperlinkid_systemlevelpowernetworkresults_head">
+					</H2>
+					<br />
+
+					<H2
+						id="signature96t0879g09870gj0m_ReportSignature_hyperlinkid_systemlevelpowernetworkresults_diagramm">
+					</H2>
+					<!--signature96t0879g09870gj0m_ReportSignature_SystemLevelPowerNetworkResults_DiagramStart-->
+					<center><img
+							src="Images\a410f97b-5472-4ed1-84a4-69b752aeeafc.png"
+							title="System-Level Diagram"
+							style="max-width:99%;max-height:99%;"></center>
+					<br />
+					<!--signature96t0879g09870gj0m_ReportSignature_SystemLevelPowerNetworkResults_DiagramEnd-->
+					<br />
+			</td>
+		</tr>
+		<tr> </tr>
+		<tr> </tr>
+		<tr> </tr>
+		<tr> </tr>
+		<tr> </tr>
+		<tr> </tr>
+		<!--signature96t0879g09870gj0m_ReportSignature_System-Level Power Network Results End-->
+
+		<H2 id="signature96t0879g09870gj0m_ReportSignature_hyperlinkid_networkdetails_head"></H2>
+		<!--signature96t0879g09870gj0m_ReportSignature_Network Details Start-->
+		<tr>
+			<td>
+				<button class="foldButton" width="100%"><b>Network
+						LCD_3V3 Details</b></button>
+
+				<div class="foldablePanel">
+					<H2 id="signature96t0879g09870gj0m_ReportSignature_hyperlinkid_networkdetails_network_headuFnLB1EsRmlVJWY04JSUPwDO0VRd6xn4YxquF71bPI"></H2>
+					<br />
+
+					<!--signature96t0879g09870gj0m_ReportSignature_Network Details Diagramm Start-->
+					<H2 id="signature96t0879g09870gj0m_ReportSignature_hyperlinkid_networkdetails_diagramm_image"></H2>
+
+					<center><img src="Images\f0ac39f2-e378-4d45-a0ac-0f587c821c08.png"
+							title="Diagramm for LCD_3V3 network"
+							style="max-width:99%;max-height:99%;"></center>
+					<br />
+					<!--signature96t0879g09870gj0m_ReportSignature_Network Details Diagramm End-->
+
+					<!--signature96t0879g09870gj0m_ReportSignature_Network Details Image Start-->
+					<!--<H2 id="signature96t0879g09870gj0m_ReportSignature_hyperlinkid_networkdetails_network_imageuFnLB1EsRmlVJWY04JSUPwDO0VRd6xn4YxquF71bPI"></H2>
+						<center><img
+							src="signature96t0879g09870gj0m_ReportSignature_NetworkDetails_ImageFileName" 
+							title="signature96t0879g09870gj0m_ReportSignature_NetworkDetails_ImageName" 
+							style="max-width:99%;max-height:99%;"></center>
+						<br/>-->
+					<!--signature96t0879g09870gj0m_ReportSignature_Network Details Image End-->
+
+					<!--signature96t0879g09870gj0m_ReportSignature_Network Details Info Start-->
+					<H2 id="signature96t0879g09870gj0m_ReportSignature_hyperlinkid_networkdetails_network_infouFnLB1EsRmlVJWY04JSUPwDO0VRd6xn4YxquF71bPI"></H2>
+					<!--Simulation Pass/Fail-->
+					<left> <b>Power Analysis Pass/Fail: </b>
+						Pass</left><br />
+					<br />
+
+					<left> <b>Power Consumption for This Network:
+						</b>0 Watts</left>
+					<br />
+					<br />
+
+					<!--signature96t0879g09870gj0m_ReportSignature_NetworkResultsPart Start-->
+					<H2 id="signature96t0879g09870gj0m_ReportSignature_hyperlinkid_networkdetails_network_worstmarginuFnLB1EsRmlVJWY04JSUPwDO0VRd6xn4YxquF71bPI">
+					</H2>
+					<script
+						type="text/javascript"> $(function () { $("#NetworkDetailsWorstMarginsTableID_uFnLB1EsRmlVJWY04JSUPwDO0VRd6xn4YxquF71bPI").tablesorter({ sortList: [[0, 0]] }); });</script>
+					<script
+						type="text/javascript"> $(function () { $("#NetworkDetailsWorstMarginsInPercents_TableID_uFnLB1EsRmlVJWY04JSUPwDO0VRd6xn4YxquF71bPI").tablesorter({ sortList: [[0, 0]] }); });</script>
+					<left><b> Least Margins:</left></b><br/><table id='NetworkDetailsWorstMarginsTableID_uFnLB1EsRmlVJWY04JSUPwDO0VRd6xn4YxquF71bPI' class='tablesorter'>
+    <thead>
+       <th><b>Margin Type</b></th>
+              <th><b>Absolute</b></th>
+              <th><b>Pass/Fail</b></th>
+          </thead>
+      <tr>
+       <td><b>Non-Via Current Density (A/mil^2)</b></td>
+              <td>57.921m</td>
+              <td>Pass</td>
+          </tr>
+      <tr>
+       <td><b>Via Current (A)</b></td>
+              <td>900m</td>
+              <td>Pass</td>
+          </tr>
+   </table><br/>
+
+					<table id='NetworkDetailsWorstMarginsInPercents_TableID_uFnLB1EsRmlVJWY04JSUPwDO0VRd6xn4YxquF71bPI' class='tablesorter'>
+    <thead>
+       <th><b>Margin Type (%)</b></th>
+              <th><b>Percent</b></th>
+              <th><b>Pass/Fail</b></th>
+          </thead>
+      <tr>
+       <td><b>Non-Via Current Density</b></td>
+              <td>89.78%</td>
+              <td>Pass</td>
+          </tr>
+      <tr>
+       <td><b>Via Current</b></td>
+              <td>90.00%</td>
+              <td>Pass</td>
+          </tr>
+   </table><br/>
+
+
+					<!--List of Violations-->
+					<H2
+						id="signature96t0879g09870gj0m_ReportSignature_hyperlinkid_networkdetails_network_listofviolationsuFnLB1EsRmlVJWY04JSUPwDO0VRd6xn4YxquF71bPI">
+					</H2>
+					<script
+						type="text/javascript"> $(function () { $("#NetworkDetailsListOfViolationsTableID_uFnLB1EsRmlVJWY04JSUPwDO0VRd6xn4YxquF71bPI").tablesorter({ sortList: [[0, 0]] }); });</script>
+					
+					<!--signature96t0879g09870gj0m_ReportSignature_NetworkResultsPart End-->
+
+					<!--signature96t0879g09870gj0m_ReportSignature_DetailedAnalysisResultsPart Start-->
+					<H2
+						id="signature96t0879g09870gj0m_ReportSignature_hyperlinkid_networkdetails_network_voltagesourceperformancesummaryuFnLB1EsRmlVJWY04JSUPwDO0VRd6xn4YxquF71bPI">
+					</H2>
+					<script
+						type="text/javascript"> $(function () { $("#NetworkDetailsVoltageSourcePerformanceSummaryTableID_uFnLB1EsRmlVJWY04JSUPwDO0VRd6xn4YxquF71bPI").tablesorter({ sortList: [[0, 0]] }); });</script>
+					
+
+					<!--Voltage Source Pin Voltage/Current Details-->
+					<H2
+						id="signature96t0879g09870gj0m_ReportSignature_hyperlinkid_networkdetails_network_voltagesourcepinvoltagecurrentdetailsuFnLB1EsRmlVJWY04JSUPwDO0VRd6xn4YxquF71bPI">
+					</H2>
+					<script
+						type="text/javascript"> $(function () { $("#NetworkDetailsVoltageSourcePinVoltageCurrentDetailsTableID_uFnLB1EsRmlVJWY04JSUPwDO0VRd6xn4YxquF71bPI").tablesorter({ sortList: [[0, 0], [2, 0], [4, 0]] }); });</script>
+					
+
+					<!--Load Summary-->
+					<H2
+						id="signature96t0879g09870gj0m_ReportSignature_hyperlinkid_networkdetails_network_loadperformancesummaryuFnLB1EsRmlVJWY04JSUPwDO0VRd6xn4YxquF71bPI">
+					</H2>
+					<script
+						type="text/javascript"> $(function () { $("#NetworkDetailsLoadPerformanceSummaryTableID_uFnLB1EsRmlVJWY04JSUPwDO0VRd6xn4YxquF71bPI").tablesorter({ sortList: [[0, 0]] }); });</script>
+					
+
+					<!--Load Pin Voltage/Current Details-->
+					<H2
+						id="signature96t0879g09870gj0m_ReportSignature_hyperlinkid_networkdetails_network_loadpinvoltagecurrentdetailsuFnLB1EsRmlVJWY04JSUPwDO0VRd6xn4YxquF71bPI">
+					</H2>
+					<script
+						type="text/javascript"> $(function () { $("#NetworkDetailsLoadPinVoltageCurrentDetailsTableID_uFnLB1EsRmlVJWY04JSUPwDO0VRd6xn4YxquF71bPI").tablesorter({ sortList: [[0, 0], [2, 0], [4, 0]] }); });</script>
+					
+
+					<!--Series Element Performance Summary-->
+					<H2
+						id="signature96t0879g09870gj0m_ReportSignature_hyperlinkid_networkdetails_network_serieselementperformancesummaryuFnLB1EsRmlVJWY04JSUPwDO0VRd6xn4YxquF71bPI">
+					</H2>
+					<script
+						type="text/javascript"> $(function () { $("#NetworkDetailsSeriesElementPerformanceSummaryTableID_uFnLB1EsRmlVJWY04JSUPwDO0VRd6xn4YxquF71bPI").tablesorter({ sortList: [[0, 0]] }); });</script>
+					
+
+					<!--Series Element Pin Voltage/Current Details-->
+					<H2
+						id="signature96t0879g09870gj0m_ReportSignature_hyperlinkid_networkdetails_network_serieselementpinvoltagecurrentdetailsuFnLB1EsRmlVJWY04JSUPwDO0VRd6xn4YxquF71bPI">
+					</H2>
+					<script
+						type="text/javascript"> $(function () { $("#NetworkDetailsSeriesElementPinVoltageCurrentDetailsTableID_uFnLB1EsRmlVJWY04JSUPwDO0VRd6xn4YxquF71bPI").tablesorter({ sortList: [[0, 0], [1, 0], [3, 0]] }); });</script>
+					
+
+					<!--Failed Via Summary-->
+					<H2
+						id="signature96t0879g09870gj0m_ReportSignature_hyperlinkid_networkdetails_network_failedviasummaryuFnLB1EsRmlVJWY04JSUPwDO0VRd6xn4YxquF71bPI">
+					</H2>
+					<script
+						type="text/javascript"> $(function () { $("#NetworkDetailsFailedViaSummaryTableID_uFnLB1EsRmlVJWY04JSUPwDO0VRd6xn4YxquF71bPI").tablesorter({ sortList: [[0, 0], [1, 0]] }); });</script>
+					<left><b> Failed Via Summary:</left></b><br/><table id='NetworkDetailsFailedViaSummaryTableID_uFnLB1EsRmlVJWY04JSUPwDO0VRd6xn4YxquF71bPI' class='tablesorter'>
+    <thead>
+       <th><b>Net</b></th>
+              <th><b>Location</b></th>
+              <th><b>Drill Diameter</b></th>
+              <th><b>Max Current (A)</b></th>
+              <th><b>Actual Current (A)</b></th>
+              <th><b>Margin (%)</b></th>
+              <th><b>Max Current Density</b></th>
+              <th><b>Actual Current Density</b></th>
+              <th><b>Margin (%)</b></th>
+          </thead>
+      <tr>
+       <td><b>LCD_3V3</b></td>
+              <td>1669.291mil : 311.024mil</td>
+              <td>11.811mil</td>
+              <td>1</td>
+              <td>4.4471m</td>
+              <td>99.56%</td>
+              <td>0 (A/mil^2)</td>
+              <td>497.88u (A/mil^2)</td>
+              <td>∞</td>
+          </tr>
+      <tr>
+       <td><b>LCD_3V3</b></td>
+              <td>1669.291mil : 354.331mil</td>
+              <td>11.811mil</td>
+              <td>1</td>
+              <td>5.7535m</td>
+              <td>99.42%</td>
+              <td>0 (A/mil^2)</td>
+              <td>647.56u (A/mil^2)</td>
+              <td>∞</td>
+          </tr>
+      <tr>
+       <td><b>LCD_3V3</b></td>
+              <td>1570.866mil : 440.945mil</td>
+              <td>11.811mil</td>
+              <td>1</td>
+              <td>50.003m</td>
+              <td>95.00%</td>
+              <td>0 (A/mil^2)</td>
+              <td>17.341m (A/mil^2)</td>
+              <td>∞</td>
+          </tr>
+      <tr>
+       <td><b>LCD_3V3</b></td>
+              <td>2218.504mil : 1061.024mil</td>
+              <td>11.811mil</td>
+              <td>1</td>
+              <td>100m</td>
+              <td>90.00%</td>
+              <td>0 (A/mil^2)</td>
+              <td>34.956m (A/mil^2)</td>
+              <td>∞</td>
+          </tr>
+      <tr>
+       <td><b>LCD_3V3</b></td>
+              <td>2220.472mil : 1299.213mil</td>
+              <td>11.811mil</td>
+              <td>1</td>
+              <td>50.003m</td>
+              <td>95.00%</td>
+              <td>0 (A/mil^2)</td>
+              <td>18.33m (A/mil^2)</td>
+              <td>∞</td>
+          </tr>
+      <tr>
+       <td><b>LCD_3V3</b></td>
+              <td>2098.425mil : 1437.008mil</td>
+              <td>11.811mil</td>
+              <td>1</td>
+              <td>53.418m</td>
+              <td>94.66%</td>
+              <td>0 (A/mil^2)</td>
+              <td>18.846m (A/mil^2)</td>
+              <td>∞</td>
+          </tr>
+      <tr>
+       <td><b>LCD_3V3</b></td>
+              <td>2098.425mil : 1397.638mil</td>
+              <td>11.811mil</td>
+              <td>1</td>
+              <td>48.947m</td>
+              <td>95.11%</td>
+              <td>0 (A/mil^2)</td>
+              <td>17.715m (A/mil^2)</td>
+              <td>∞</td>
+          </tr>
+      <tr>
+       <td><b>LCD_3V3</b></td>
+              <td>2059.055mil : 1437.008mil</td>
+              <td>11.811mil</td>
+              <td>1</td>
+              <td>31.376m</td>
+              <td>96.86%</td>
+              <td>0 (A/mil^2)</td>
+              <td>10.861m (A/mil^2)</td>
+              <td>∞</td>
+          </tr>
+      <tr>
+       <td><b>LCD_3V3</b></td>
+              <td>2059.055mil : 1397.638mil</td>
+              <td>11.811mil</td>
+              <td>1</td>
+              <td>24.951m</td>
+              <td>97.50%</td>
+              <td>0 (A/mil^2)</td>
+              <td>9.2208m (A/mil^2)</td>
+              <td>∞</td>
+          </tr>
+      <tr>
+       <td><b>LCD_3V3</b></td>
+              <td>2019.685mil : 1397.638mil</td>
+              <td>11.811mil</td>
+              <td>1</td>
+              <td>17.393m</td>
+              <td>98.26%</td>
+              <td>0 (A/mil^2)</td>
+              <td>6.3533m (A/mil^2)</td>
+              <td>∞</td>
+          </tr>
+      <tr>
+       <td><b>LCD_3V3</b></td>
+              <td>2019.685mil : 1437.008mil</td>
+              <td>11.811mil</td>
+              <td>1</td>
+              <td>23.925m</td>
+              <td>97.61%</td>
+              <td>0 (A/mil^2)</td>
+              <td>8.1163m (A/mil^2)</td>
+              <td>∞</td>
+          </tr>
+   </table><br/>
+
+
+					<!--Excessive Non-Via Current Density-->
+					<H2
+						id="signature96t0879g09870gj0m_ReportSignature_hyperlinkid_networkdetails_network_excessivenonviacurrentdensityuFnLB1EsRmlVJWY04JSUPwDO0VRd6xn4YxquF71bPI">
+					</H2>
+					<script
+						type="text/javascript"> $(function () { $("#NetworkDetailsExcessiveNonViaCurrentDensityTableID_uFnLB1EsRmlVJWY04JSUPwDO0VRd6xn4YxquF71bPI").tablesorter({ sortList: [[5, 0]] }); });</script>
+					
+
+					<!--signature96t0879g09870gj0m_ReportSignature_DetailedAnalysisResultsPart End-->
+
+					<!--Component Definition Summary for network-->
+					<H2
+						id="signature96t0879g09870gj0m_ReportSignature_hyperlinkid_networkdetails_network_componentdefinitionsummaryuFnLB1EsRmlVJWY04JSUPwDO0VRd6xn4YxquF71bPI">
+					</H2>
+					<script
+						type="text/javascript"> $(function () { $("#NetworkDetailsComponentDefinitionSummaryTableID_uFnLB1EsRmlVJWY04JSUPwDO0VRd6xn4YxquF71bPI").tablesorter({ sortList: [[1, 0]] }); });</script>
+					
+
+					
+					
+					<!--signature96t0879g09870gj0m_ReportSignature_Network Details Info End-->
+				</div>
+			</td>
+		</tr>
+		<tr> </tr>
+		<tr> </tr>
+		<tr> </tr>
+		<tr> </tr>
+		<tr> </tr>
+		<tr> </tr>
+		<!--signature96t0879g09870gj0m_ReportSignature_Network Details End-->
+
+		<tr> </tr>
+		<tr> </tr>
+		<tr> </tr>
+		<tr> </tr>
+		<tr> </tr>
+		<tr> </tr>
+		<script>
+			onPageLoaded();
+		</script>
+</body>
+
+</html>

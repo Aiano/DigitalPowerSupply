@@ -6,7 +6,7 @@
 void PWM_Init();
 void PWM_Enable();
 void PWM_Disable();
-void PWM_SetDutyCycle(float portA, float portB);
+void PWM_SetDutyCycle(float port1, float port2);
 void PWM_SetFreq(float freq);
 void PWM_SetDeadTime(uint16_t deadTime);
 

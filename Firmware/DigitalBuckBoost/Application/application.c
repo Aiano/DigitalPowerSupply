@@ -17,8 +17,8 @@
 // #define HARDWARE_DEBUG_LED     // LED测试
 
 #endif                        // HARDWARE_DEBUG
-#define UVLO_MIN 11.3f         // 欠压锁定低电压
-#define UVLO_MAX 11.7f         // 欠压锁定高电压
+#define UVLO_MIN 11.3f        // 欠压锁定低电压
+#define UVLO_MAX 11.7f        // 欠压锁定高电压
 #define SLOW_START_SLOP 30.0f // 软起动斜率 单位：V/s
 
 /* 类型定义 */
@@ -30,16 +30,51 @@ typedef enum
 } OPERATION_MODE;
 
 /* 全局变量 */
-OPERATION_MODE operation_mode = BUCK_MODE; // 工作模式
+uint8_t direction = 0;                      // 0-PortA to PortB  1-PortB to PortA
+OPERATION_MODE operation_mode = BUCK_MODE;  // 工作模式
 OPERATION_MODE slow_start_mode = BUCK_MODE; // 软起动工作模式
-uint8_t flag_uvlo = 1;                     // 欠压锁定标志
-uint8_t flag_slow_start = 0;               // 缓启动标志
-float switching_frequency = 200000;        // 开关频率 单位：Hz
-float switching_period = 0.000005f;        // 开关周期 单位：s
-float duty_cycle1 = 0.5f;                  // 占空比1 输入端半桥上管导通占空比
-float duty_cycle2 = 0.5f;                  // 占空比2 输出端半桥下管导通占空比
+uint8_t flag_uvlo = 1;                      // 欠压锁定标志
+uint8_t flag_slow_start = 0;                // 缓启动标志
+uint8_t flag_error_supply_voltage = 0;      // 供电电压异常错误标志
+uint8_t flag_init_finished = 0;             // 初始化完成标志
+float switching_frequency = 200000;         // 开关频率 单位：Hz
+float switching_period = 0.000005f;         // 开关周期 单位：s
+float duty_cycle1 = 0.5f;                   // 占空比1 输入端半桥上管导通占空比
+float duty_cycle2 = 0.5f;                   // 占空比2 输出端半桥下管导通占空比
 float target_Vout = 15.0f;                  // 目标输出电压 单位：V
-float slow_start_Vout = 0.65f;             // 缓启动目标输出电压 单位：V
+float slow_start_Vout = 0.65f;              // 缓启动目标输出电压 单位：V
+
+void APP_DetermineDirection()
+{
+    HAL_Delay(500); // 等待供电电压稳定
+    if (Vin > UVLO_MAX && Vout > UVLO_MAX) // 都满足解锁要求情况下，谁电压高谁当输入
+    {
+        if (Vin > Vout)
+        {
+            direction = 0;
+        }
+        else
+        {
+            direction = 1;
+        }
+    }
+    else if (Vin > UVLO_MAX) // 只有一个满足解锁要求情况下，谁满足谁当输入
+    {
+        direction = 0;
+    }
+    else if (Vout > UVLO_MAX)
+    {
+        direction = 1;
+    }
+    else{ // 都不满足情况下，报错，不输出电压
+        flag_error_supply_voltage = 1;
+        while(1){
+            HAL_GPIO_WritePin(LED_OUTPUT_GPIO_Port, LED_OUTPUT_Pin, GPIO_PIN_SET);
+            HAL_GPIO_TogglePin(LED_PROTECTION_GPIO_Port, LED_PROTECTION_Pin);
+            HAL_Delay(200);
+        }
+    }
+}
 
 /**
  * @brief 业务初始化
@@ -77,6 +112,8 @@ void APP_Init()
 #else // 正常
     SC_Init();
     PWM_Init();
+    APP_DetermineDirection();
+    flag_init_finished = 1;
 #endif
 }
 
@@ -94,6 +131,12 @@ void APP_MainLoop()
  */
 void APP_VoltageClosedLoop()
 {
+    /* 错误处理 */
+    if(flag_error_supply_voltage || !flag_init_finished)
+    {
+        return;
+    }
+
     /* 欠压锁定 */
     if (flag_uvlo)
     {
@@ -104,6 +147,9 @@ void APP_VoltageClosedLoop()
             slow_start_Vout = 0.65f;
             PWM_SetDutyCycle(0.05f, 0.95f);
             PWM_Enable();
+
+            HAL_GPIO_WritePin(LED_OUTPUT_GPIO_Port, LED_OUTPUT_Pin, GPIO_PIN_RESET);
+            HAL_GPIO_WritePin(LED_PROTECTION_GPIO_Port, LED_PROTECTION_Pin, GPIO_PIN_SET);
         }
         else
         {
@@ -120,6 +166,9 @@ void APP_VoltageClosedLoop()
             flag_uvlo = 1;
             PWM_Disable();
             PWM_SetDutyCycle(0.05f, 0.95f);
+
+            HAL_GPIO_WritePin(LED_OUTPUT_GPIO_Port, LED_OUTPUT_Pin, GPIO_PIN_SET);
+            HAL_GPIO_WritePin(LED_PROTECTION_GPIO_Port, LED_PROTECTION_Pin, GPIO_PIN_RESET);
             return;
         }
     }
@@ -129,20 +178,20 @@ void APP_VoltageClosedLoop()
     {
         slow_start_Vout += switching_period * SLOW_START_SLOP;
 
-        switch(slow_start_mode)
+        switch (slow_start_mode)
         {
-            case BUCK_MODE:
-                duty_cycle2 = 0.05f;
-                duty_cycle1 = slow_start_Vout / Vin * (1 - duty_cycle2);
-                break;
-            case BOOST_MODE:
-                duty_cycle1 = 0.95f;
-                duty_cycle2 = 1.0f - duty_cycle1 * Vin / slow_start_Vout;
-                break;
-            default:
-                break;
+        case BUCK_MODE:
+            duty_cycle2 = 0.05f;
+            duty_cycle1 = slow_start_Vout / Vin * (1 - duty_cycle2);
+            break;
+        case BOOST_MODE:
+            duty_cycle1 = 0.95f;
+            duty_cycle2 = 1.0f - duty_cycle1 * Vin / slow_start_Vout;
+            break;
+        default:
+            break;
         }
-        
+
         if (duty_cycle1 < 0.05f)
             duty_cycle1 = 0.05f;
         else if (duty_cycle1 > 0.95f)
@@ -155,7 +204,7 @@ void APP_VoltageClosedLoop()
         PWM_SetDutyCycle(duty_cycle1, 1 - duty_cycle2);
 
         /* 模式转换 */
-        if(slow_start_Vout >= Vin)
+        if (slow_start_Vout >= Vin)
         {
             slow_start_mode = BOOST_MODE;
         }

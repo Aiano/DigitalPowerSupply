@@ -1,11 +1,12 @@
 #include "pwm.h"
 #include "hrtim.h"
+#include "application.h"
 
 #define FHRCK 5440000000.0f // HRTIM等效时钟频率
 static uint16_t period = 27200;
 static float frequency = 200000;
-static float duty_portA = 0.5;
-static float duty_portB = 0.5;
+static float duty_port1 = 0.5;
+static float duty_port2 = 0.5;
 
 
 void PWM_Init()
@@ -28,23 +29,39 @@ void PWM_Disable()
 /**
  * @brief 设置PWM占空比
  * 
- * @param portA Port1侧半桥上管占空比 0~1
- * @param portB Port2侧半桥上管占空比 0~1
+ * @param port1 Port1侧半桥上管占空比 0~1
+ * @param port2 Port2侧半桥上管占空比 0~1
  */
-void PWM_SetDutyCycle(float portA, float portB)
+void PWM_SetDutyCycle(float port1, float port2)
 {
-    duty_portA = portA;
-    duty_portB = portB;
-    __HAL_HRTIM_SETCOMPARE(&hhrtim1, HRTIM_TIMERINDEX_TIMER_A, HRTIM_COMPAREUNIT_1, period * duty_portB);
-    __HAL_HRTIM_SETCOMPARE(&hhrtim1, HRTIM_TIMERINDEX_TIMER_B, HRTIM_COMPAREUNIT_1, period * duty_portA);
+    duty_port1 = port1;
+    duty_port2 = port2;
+    if(direction == 0){
+        __HAL_HRTIM_SETCOMPARE(&hhrtim1, HRTIM_TIMERINDEX_TIMER_A, HRTIM_COMPAREUNIT_1, period * duty_port2);
+        __HAL_HRTIM_SETCOMPARE(&hhrtim1, HRTIM_TIMERINDEX_TIMER_B, HRTIM_COMPAREUNIT_1, period * duty_port1);
+    }
+    else{
+        __HAL_HRTIM_SETCOMPARE(&hhrtim1, HRTIM_TIMERINDEX_TIMER_A, HRTIM_COMPAREUNIT_1, period * duty_port1);
+        __HAL_HRTIM_SETCOMPARE(&hhrtim1, HRTIM_TIMERINDEX_TIMER_B, HRTIM_COMPAREUNIT_1, period * duty_port2);
+    }
+    
 }
 
 void PWM_SetFreq(float freq)
 {
     frequency = freq;
     period = FHRCK / frequency;
-    __HAL_HRTIM_SETCOMPARE(&hhrtim1, HRTIM_TIMERINDEX_TIMER_A, HRTIM_COMPAREUNIT_1, period * duty_portB);
-    __HAL_HRTIM_SETCOMPARE(&hhrtim1, HRTIM_TIMERINDEX_TIMER_B, HRTIM_COMPAREUNIT_1, period * duty_portA);
+    __HAL_HRTIM_SETPERIOD(&hhrtim1, HRTIM_TIMERINDEX_MASTER, period);
+    __HAL_HRTIM_SETPERIOD(&hhrtim1, HRTIM_TIMERINDEX_TIMER_A, period);
+    __HAL_HRTIM_SETPERIOD(&hhrtim1, HRTIM_TIMERINDEX_TIMER_B, period);
+    if(direction == 0){
+        __HAL_HRTIM_SETCOMPARE(&hhrtim1, HRTIM_TIMERINDEX_TIMER_A, HRTIM_COMPAREUNIT_1, period * duty_port2);
+        __HAL_HRTIM_SETCOMPARE(&hhrtim1, HRTIM_TIMERINDEX_TIMER_B, HRTIM_COMPAREUNIT_1, period * duty_port1);
+    }
+    else{
+        __HAL_HRTIM_SETCOMPARE(&hhrtim1, HRTIM_TIMERINDEX_TIMER_A, HRTIM_COMPAREUNIT_1, period * duty_port1);
+        __HAL_HRTIM_SETCOMPARE(&hhrtim1, HRTIM_TIMERINDEX_TIMER_B, HRTIM_COMPAREUNIT_1, period * duty_port2);
+    }
 }
 
 void PWM_SetDeadTime(uint16_t deadTime)

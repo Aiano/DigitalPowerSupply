@@ -3,6 +3,8 @@
 
 #include "main.h"
 
+extern uint8_t direction;
+
 void APP_Init();
 void APP_MainLoop();
 

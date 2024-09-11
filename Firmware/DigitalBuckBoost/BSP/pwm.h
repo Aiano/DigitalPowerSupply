@@ -3,6 +3,7 @@
 
 #include "main.h"
 
+void PWM_Init();
 void PWM_Enable();
 void PWM_Disable();
 void PWM_SetDutyCycle(float portA, float portB);

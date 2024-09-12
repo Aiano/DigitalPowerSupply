@@ -3,6 +3,7 @@
 "digitalbuckboost\main.o"
 "digitalbuckboost\gpio.o"
 "digitalbuckboost\adc.o"
+"digitalbuckboost\dma.o"
 "digitalbuckboost\hrtim.o"
 "digitalbuckboost\usart.o"
 "digitalbuckboost\stm32g4xx_it.o"

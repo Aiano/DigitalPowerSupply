@@ -1,6 +1,5 @@
-digitalbuckboost/application.o: ..\Application\application.c \
-  ..\Application\application.h ..\Core\Inc\main.h \
-  ..\Drivers\STM32G4xx_HAL_Driver\Inc\stm32g4xx_hal.h \
+digitalbuckboost/dma.o: ..\Core\Src\dma.c ..\Core\Inc\dma.h \
+  ..\Core\Inc\main.h ..\Drivers\STM32G4xx_HAL_Driver\Inc\stm32g4xx_hal.h \
   ..\Core\Inc\stm32g4xx_hal_conf.h \
   ..\Drivers\STM32G4xx_HAL_Driver\Inc\stm32g4xx_hal_rcc.h \
   ..\Drivers\STM32G4xx_HAL_Driver\Inc\stm32g4xx_hal_def.h \
@@ -34,9 +33,4 @@ digitalbuckboost/application.o: ..\Application\application.c \
   ..\Drivers\STM32G4xx_HAL_Driver\Inc\stm32g4xx_hal_pwr.h \
   ..\Drivers\STM32G4xx_HAL_Driver\Inc\stm32g4xx_hal_pwr_ex.h \
   ..\Drivers\STM32G4xx_HAL_Driver\Inc\stm32g4xx_hal_uart.h \
-  ..\Drivers\STM32G4xx_HAL_Driver\Inc\stm32g4xx_hal_uart_ex.h \
-  ..\Core\Inc\hrtim.h ..\Core\Inc\main.h ..\BSP\pwm.h \
-  ..\BSP\signal_conditioning.h \
-  C:\Keil_v5\ARM\ARMCLANG\Bin\..\include\stdio.h \
-  C:\Keil_v5\ARM\ARMCLANG\Bin\..\include\string.h ..\Core\Inc\usart.h \
-  ..\Utility\pid.h
+  ..\Drivers\STM32G4xx_HAL_Driver\Inc\stm32g4xx_hal_uart_ex.h

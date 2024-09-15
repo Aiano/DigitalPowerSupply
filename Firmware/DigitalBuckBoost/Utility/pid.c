@@ -19,7 +19,7 @@ void PID_SetParam(PID *pid, float Kp, float Ki, float Kd, float max_integral, fl
 
 void PID_Init()
 {
-    PID_SetParam(&pid_voltage, 0.3f, 0.01f, 0, 10.0f, 0.2f);
+    PID_SetParam(&pid_voltage, 0.2f, 0.001f, 0, 50.0f, 0.2f);
 }
 
 float PID_Calculate(PID *pid, float error)

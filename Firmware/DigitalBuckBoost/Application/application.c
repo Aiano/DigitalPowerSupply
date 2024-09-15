@@ -13,7 +13,7 @@
 
 // #define HARDWARE_DEBUG_HRTIM_A // 端口A PWM测试
 // #define HARDWARE_DEBUG_HRTIM_B // 端口B PWM测试
-// #define HARDWARE_DEBUG_BUCK // 固定占空比Buck测试
+#define HARDWARE_DEBUG_BUCK // 固定占空比Buck测试
 // #define HARDWARE_DEBUG_BOOST // 固定占空比Boost测试
 // #define HARDWARE_DEBUG_V_SENSE // 电压检测测试
 // #define HARDWARE_DEBUG_I_SENSE // 电流检测测试
@@ -46,7 +46,7 @@ float switching_frequency = 200000;         // 开关频率 单位：Hz
 float switching_period = 0.000005f;         // 开关周期 单位：s
 float duty_cycle1 = 0.5f;                   // 占空比1 输入端半桥上管导通占空比
 float duty_cycle2 = 0.5f;                   // 占空比2 输出端半桥下管导通占空比
-float target_Vout = 6.0f;                  // 目标输出电压 单位：V
+float target_Vout = 12.0f;                   // 目标输出电压 单位：V
 float slow_start_Vout = 0.65f;              // 缓启动目标输出电压 单位：V
 float comp_duty_cycle = 0.0f;               // PID补偿占空比
 
@@ -107,7 +107,7 @@ void APP_Init()
 #endif
 #ifdef HARDWARE_DEBUG_BUCK
     PWM_Enable();
-    PWM_SetDutyCycle(0.5f, 0.95f);
+    PWM_SetDutyCycle(0.25f, 0.95f);
 #endif
 #ifdef HARDWARE_DEBUG_BOOST
     PWM_Enable();
@@ -124,6 +124,15 @@ void APP_Init()
     SC_Init();
     PWM_Init();
     APP_DetermineDirection();
+
+    if (direction == 0)
+    { // portA to portB
+        __HAL_HRTIM_SETCOMPARE(&hhrtim1, HRTIM_TIMERINDEX_MASTER, HRTIM_COMPAREUNIT_1, 27200 * 0.8f);
+    }
+    else
+    { // portB to portA
+        __HAL_HRTIM_SETCOMPARE(&hhrtim1, HRTIM_TIMERINDEX_MASTER, HRTIM_COMPAREUNIT_1, 27200 * 0.8f);
+    }
     flag_init_finished = 1;
 #endif
 }
@@ -271,7 +280,8 @@ void APP_VoltageClosedLoop()
 
         duty_cycle2 += comp_duty_cycle;
 
-        if(duty_cycle2 < 0.05f){
+        if (duty_cycle2 < 0.05f)
+        {
             duty_cycle1 += duty_cycle2 - 0.05f;
             duty_cycle2 = 0.05;
         }
@@ -320,6 +330,13 @@ void APP_ClosedLoopControl()
  * @param hadc
  */
 void HAL_ADCEx_InjectedConvCpltCallback(ADC_HandleTypeDef *hadc)
+{
+    // SC_Compute();
+    // APP_ClosedLoopControl();
+    // flag_data_update = 1;
+}
+
+void HAL_HRTIM_RepetitionEventCallback(HRTIM_HandleTypeDef *hhrtim, uint32_t TimerIdx)
 {
     SC_Compute();
     APP_ClosedLoopControl();
